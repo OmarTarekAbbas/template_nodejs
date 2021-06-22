@@ -1,0 +1,125 @@
+<style>
+    input[type="email"],
+    input[type="number"] {
+        padding: 6px 15px;
+        width: 100%;
+        -moz-appearance: textfield;
+        border: 1px solid #e5e5e5;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+<div class="main-container no-sidebar">
+    <div class="container">
+        <div class="main-content">
+            <div class="page-title">
+                <h3>CHECKOUT</h3>
+            </div>
+            <div class="row">
+                {{#if errorMas}}
+                <div class="alert alert-danger ">
+                    {{ errorMas }}
+                </div>
+                {{/if}}
+                <div id="payment-errors" class="alert alert-danger" style="display: none;"></div>
+
+                <div class="col-sm-6">
+                    <div class="form-checkout">
+                        <h5 class="form-title">Personal Data</h5>
+                        <form action="/orders/checkout" method="post" id="checkout-form">
+                            <p><input type="text" placeholder="Name" name="name" value="{{{user.userName}}}" id=""></p>
+                            <p><input type="email" name="email" placeholder="Please Enter Email"
+                                    value="{{{user.email}}}" id=""></p>
+                            <p><input type="text" name="address" placeholder="Please Enter Address"
+                                    value="{{{user.address}}}" id=""></p>
+                            <p><input type="number" name="phoneNumber" placeholder="Please Enter phone Number"
+                                    value="{{{user.phoneNumber}}}" id=""></p>
+                            <p><input type="text" name="card_name" placeholder="Credit Card Name" id=""></p>
+
+                            <p><input type="number" name="card_number" min="0" placeholder="Credit Card Number"
+                                    id="card-number"></p>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p><input type="number" name="expiration_month" placeholder="Expiration Month"
+                                            id="card-expiry-month"></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p><input type="number" name="expiration_year" placeholder="Expiration Year"
+                                            id="card-expiry-year"></p>
+                                </div>
+                            </div>
+                            <p><input type="number" name="CVC" min="0" placeholder="CVC" id="card-cvc"></p>
+                            <button type="submit" class="button btn-primary medium">PROCEED TO CHECKOUT</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-checkout order">
+                        <h5 class="form-title">YOUR ORDER</h5>
+                        <table class="shop-table order">
+                            <thead>
+                                <tr>
+                                    <th class="product-name">PRODUCT</th>
+                                    <th class="product-name">QR</th>
+                                    <th class="total">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each userCartec.selectedProduct as |val index|}}
+                                <tr>
+                                    <td class="product-name">{{val.name}}</td>
+                                    <td class="product-name">{{val.quantity}}</td>
+                                    <td class="total"><span class="price">£{{val.price}}</span></td>
+                                </tr>
+                                {{/each}}
+                                <tr class="order-total">
+                                    <td class="subtotal" colspan="2">ORDER TOTAL</td>
+                                    <td class="total"><span class="price">£{{userCartec.totalPrice}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="margin-top-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="element-icon style2">
+                        <div class="icon"><i class="flaticon flaticon-origami28"></i></div>
+                        <div class="content">
+                            <h4 class="title">FREE SHIPPING WORLD WIDE</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="element-icon style2">
+                        <div class="icon"><i class="flaticon flaticon-curvearrows9"></i></div>
+                        <div class="content">
+                            <h4 class="title">MONEY BACK GUARANTEE</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="element-icon style2">
+                        <div class="icon"><i class="flaticon flaticon-headphones54"></i></div>
+                        <div class="content">
+                            <h4 class="title">ONLINE SUPPORT 24/7</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="/js/checkout.js"></script>

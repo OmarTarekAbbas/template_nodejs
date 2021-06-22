@@ -1,0 +1,211 @@
+router.get('/api/omar', (req, res, next) => {
+  res.status(200).json({
+    massage: 'omar ok !!!'
+  })
+})
+
+
+router.get('/api/product', (req, res, next) => {
+  Product.find({}, ('imagePath producttName price information'), (error, resualt) => {
+    if (error) {
+      res.status(404).json({
+        massage: "error product"
+      })
+    }
+    res.status(200).json({
+      Product: resualt
+    })
+  })
+})
+
+
+
+
+router.get('/api/shopping_cart', (req, res, next) => {
+
+  if (!req.isAuthenticated()) {
+    res.status(404).json({
+      Massage: "Please login"
+    })
+  }
+
+})
+
+router.post('/api/signup', [
+  check('email').not().isEmpty().withMessage('Please enter you email'),
+  check('email').isEmail().withMessage('Please enter vaild email'),
+  check('password').not().isEmpty().withMessage('Please enter you password'),
+  check('password').isLength({ min: 5 }).withMessage('Please enter password more than 5 char'),
+  check('Confirm-Password').custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('password and Confirm-Password not matched')
+    }
+    return true;
+  })
+], (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    /* console.log(errors) */
+
+    var validationMassage = [];
+    for (var i = 0; i < errors.errors.length; i++) {
+      validationMassage.push(errors.errors[i].msg)
+    }
+
+    res.status(404).json({
+      Massage: validationMassage
+    })
+    return;
+  }
+  const user = new User({
+    email: req.body.email,
+    password: new User().hashpassword(req.body.password)
+  });
+
+  User.findOne({ email: req.body.email }, (err, result) => {
+    if (err) {
+      res.status(404).json({
+        Massage: err
+      })
+    }
+    if (result) {
+      console.log('this email already exist')
+      res.status(404).json({
+        Massage: 'this email already exist'
+      })
+      return;
+    }
+    user.save().
+      then(result => {
+        res.status(200).json({
+          User: result
+        })
+      })
+      .catch(err => {
+        res.status(404).json({
+          Massage: err
+        })
+      })
+  })
+
+})
+
+
+
+
+router.post('/api/signin', [
+  check('email').not().isEmpty().withMessage('Please enter you email'),
+  check('email').isEmail().withMessage('Please enter vaild email'),
+  check('password').not().isEmpty().withMessage('Please enter you password'),
+  check('password').isLength({ min: 5 }).withMessage('Please enter password more than 5 char'),
+], (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    /* console.log(errors) */
+
+    var validationMassage = [];
+    for (var i = 0; i < errors.errors.length; i++) {
+      validationMassage.push(errors.errors[i].msg)
+    }
+
+    res.status(404).json({
+      Massage: validationMassage
+    })
+    return;
+  }
+  User.find({ email: req.body.email }).
+    then(user => {
+      if (user.length >= 1) {
+        bcrypt.compare(req.body.password, user[0].password).
+          then(result => {
+            if (result) {
+              res.status(200).json({
+                User: user
+              })
+            } else {
+              res.status(404).json({
+                Massage: "woring password"
+              })
+            }
+          })
+      }
+    })
+    .catch(error => {
+      res.status(404).json({
+        Massage: err
+      })
+    })
+
+})
+
+
+router.post('/api/updateuse/:id', [
+  check('email').not().isEmpty().withMessage('Please enter you email'),
+  check('email').isEmail().withMessage('Please enter vaild email'),
+  check('password').not().isEmpty().withMessage('Please enter you password'),
+  check('password').isLength({ min: 5 }).withMessage('Please enter password more than 5 char'),
+], (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    /* console.log(errors) */
+
+    var validationMassage = [];
+    for (var i = 0; i < errors.errors.length; i++) {
+      validationMassage.push(errors.errors[i].msg)
+    }
+
+    res.status(404).json({
+      Massage: validationMassage
+    })
+    return;
+  }
+  const newUser = {
+    userName: req.body.userName,
+    email: req.body.email,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
+    password: new User().hashpassword(req.body.password)
+  };
+
+  User.findOneAndUpdate({ _id: req.params.id }, { $set: newUser })
+    .then(result => {
+      if (result) {
+        res.status(202).json({
+          user: result
+        })
+      } else {
+        res.status(404).json({
+          Massage: "User Not Found"
+        })
+      }
+    })
+    .catch(err => {
+      res.status(404).json({
+        Massage: err
+      })
+
+    })
+})
+
+
+
+router.delete('/api/deleteuse/:id', (req, res, next) => {
+
+  User.findOneAndDelete({ _id: req.params.id }, (err, result) => {
+    if (err) {
+      res.status(404).json({
+        Massage: err
+      })
+    }
+    if (result) {
+      res.status(200).json({
+        user: "User Delete"
+      })
+    } else {
+      res.status(404).json({
+        Massage: "User Not Found"
+      })
+    }
+  })
+
+})

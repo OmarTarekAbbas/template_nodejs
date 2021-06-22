@@ -1,0 +1,79 @@
+<div class="product-details-full">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-lg-7 col-sm-12">
+                <div class="product-detail-image">
+                    <div class="thumbnails">
+                        <a data-url="{{ product.imagePath }}" class="active" href="#">
+                            <img src="{{ product.imagePath }}" alt=""></a>
+                        <a data-url="{{ product.imagePathTwo }}" href="#"><img src="{{ product.imagePathTwo }}"
+                                alt=""></a>
+                    </div>
+                    <div class="main-image-wapper">
+                        <img class="main-image" src="{{ product.imagePath }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="product-details-right">
+                    <div class="breadcrumbs">
+                        <a href="#">Home</a>
+                        <a href="#">Sneaker</a>
+                        <span>producttName</span>
+                    </div>
+                    <h3 class="product-name">{{ product.producttName }}</h3>
+
+                    <span class="price">
+                        <ins>£{{ product.price }}</ins>
+                        <del>£{{ product.information.oldPrice }}</del>
+                    </span>
+
+                    <div class="short-descript">
+                        <p>Classic moccasin stitched work boot made from full grain Oro Legacy
+                            Leather by RedWing. Features Traction tread sole and Goodyear welt
+                            construction and triple stitched quality for durability.
+                        </p>
+                        <p>- {{ product.information.color }}</p>
+                        <p>- Size:{{ product.information.size }}</p>
+                        <p>- Pieces{{ product.information.pieces }}</p>
+                    </div>
+                    <form class="cart" enctype="multipart/form-data" method="post">
+                        {{#if checkUser}}
+
+                        <a class="button button-add-cart" data-quantity="1" href="/carts/addtocard/{{product._id}}">Add
+                            to cart</a>
+                        {{else}}
+                        <a class="button button-add-cart" data-quantity="1" href="/users/signin">Login</a>
+
+                        {{/if}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="tab-details-product padding-40-60">
+        <ul class="box-tabs nav-tab">
+            <li class="active"><a data-toggle="tab" href="#tab-1">DESCRIPTION</a></li>
+        </ul>
+        <div class="tab-container">
+            <div id="tab-1" class="tab-panel active">
+                <p>{{product.producttName}}</p>
+                <ul>
+                    <li>Color: {{ product.information.color }}</li>
+                    <li>Size: {{ product.information.size }} </li>
+                    <li>Pieces: {{ product.information.pieces }}</li>
+                    <li>OldPrice: {{ product.information.oldPrice }}</li>
+                </ul>
+                <ul>
+                    <li>Price: {{ product.price }}</li>
+                    <li>100% Cotton</li>
+                    <li>Our model wears a size Medium and is 185.5cm/6'1" tall</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--END CONTAINER-->

@@ -1,0 +1,170 @@
+<input type="hidden" value="{{{hasMassagesError}}}" id="hasMassagesError">
+<style>
+    input[type="email"],
+    input[type="number"],
+    input[type="password"] {
+        padding: 6px 15px;
+        width: 100%;
+        -moz-appearance: textfield;
+        border: 1px solid #e5e5e5;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
+
+
+{{!-- <div class="text-center" style="padding-top: 10%;">
+    {{ order }}
+
+
+
+</div> --}}
+
+<div class="container" >
+    <div style="padding: 10%; width: 50%;">
+        <img src="{{user.image}}" id="image" style="width: 100%;height: 300px;" class="img-thumbnail">
+        <form action="uploadfile" method="post" enctype="multipart/form-data">
+            <input type="file" id="file" name="myfile" accept="image/*">
+            <div style="display: none;" id="actionbutton">
+                <input type="hidden" name="_csrf" value="{{token}}">
+                <input type="submit" value="Save" class="btn btn-success">
+                <a href="/users/profile" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="form-checkout">
+                <h5 class="form-title">Personal Data</h5>
+                <form id="formupdate" method="POST" action="updateuser">
+                    {{#each massages}}
+                    <div class="alert alert-danger">
+                        <p>{{this}}</p>
+                    </div>
+                    {{/each}}
+                    <div class="form-group">
+                        <label for="formUsername">Username</label>
+                        <input type="text" name="username" value="{{{user.userName}}}" id="username"
+                            placeholder="Enter Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="formAddress">Email</label>
+                        <input type="email" name="email" id="email" value="{{{user.email}}}" placeholder="Enter Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="formAddress">Address</label>
+                        <input type="text" name="address" value="{{{user.address}}}" id="address"
+                            placeholder="Enter Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="formPhonNumber">Phone number</label>
+                        <input type="text" name="phoneNumber" value="{{{user.phoneNumber}}}" id="phoneNumber"
+                            placeholder="Enter Phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="formPassword">Password</label>
+                        <input type="password" name="password" id="Password" placeholder="Enter Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="formPassword">Confirm-Password</label>
+                        <input type="password" name="confirm-password" id="Password" placeholder="Enter Password">
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{token}}">
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Update info</button>
+                        <a href="/users/profile" class="btn btn-danger">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class=" col-md-6">
+            <div class="box-cart-total">
+                <h2 class="title">Profile Data</h2>
+                <table>
+                    <tr>
+                        <td>User Name</td>
+                        <td> {{#if user.userName}}
+                            <p class="font-weight-normal">{{{user.userName}}}</p>
+                            {{else}}
+                            <p class="font-weight-normal" style="color: red;">Please Update Your Informtion Date</p>
+                            {{/if}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>
+                            <p class="font-weight-normal">{{{user.email}}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td> {{#if user.address}}
+                            <p class="font-weight-normal">{{{user.address}}}</p>
+                            {{else}}
+                            <p class="font-weight-normal" style="color: red;">Please Update Your Informtion Date</p>
+                            {{/if}}</td>
+                    </tr>
+                    <tr>
+                        <td>Contact</td>
+                        <td> {{#if user.phoneNumber}}
+                            <p class="font-weight-normal">0{{{user.phoneNumber}}}</p>
+                            {{else}}
+                            <p class="font-weight-normal" style="color: red;">Please Update Your Informtion Date</p>
+                            {{/if}}</td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td>
+                            <p class="font-weight-normal">*********</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    console.log(document.getElementById('hasMassagesError').value)
+    if (document.getElementById('hasMassagesError').value === "true") {
+        $('#rowhome').addClass('d-none');
+        $('#formupdate').removeClass('d-none')
+    }
+
+
+    document.getElementById('file').onchange = function () {
+        const reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('image').src = this.result;
+        }
+        reader.readAsDataURL(this.files[0]);
+        $('#file').css('display: none;');
+        $('#actionbutton').removeAttr('style')
+    }
+
+
+    document.getElementById('updatedata').onclick = function () {
+        $('#rowhome').addClass('d-none');
+        $('#formupdate').removeAttr('style')
+    }
+</script>

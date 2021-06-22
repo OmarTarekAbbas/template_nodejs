@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-4 card_spac"></div>
+    <div class="col-md-4 card_spac" style="margin-top: 5%;">
+        <div class="shop-banner" style="margin-bottom: 5%;">
+            <img src="/images/slides/slider-cat2.jpg" alt="">
+        </div>
+        <h3 style="text-align: center;">SignIn</h3>
+        {{#each massages}}
+        <div class="alert alert-danger" role="alert">
+            <span class="closebtn"
+                style="margin-left: 15px;color: black;font-weight: bold;float: right;font-size: 22px;cursor: pointer;transition: 0.3s;line-height: 20px;"
+                onclick="this.parentElement.style.display='none';">×</span>
+            {{this}}
+        </div>
+        {{/each}}
+        <form action="signin" method="POST" style="padding: 15%;">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <input type="hidden" name="_csrf" value="{{token}}">
+            <button type="submit" class="button add_to_cart_button ">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-4 card_spac"></div>
+
+</div>

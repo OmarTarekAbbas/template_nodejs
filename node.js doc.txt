@@ -1,0 +1,274 @@
+﻿1- download node.js
+https://nodejs.org/en/download/
+
+2- open command line 
+
+3- ran node (node -v)
+show version
+
+4- download npm
+https://www.npmjs.com/package/npm-install
+
+5- ran npm(npm -v)
+show version
+
+6 - create new project (name)
+new project static ( c/xampp/htdocs/name project )
+
+7 - open command and cd path project 
+or 
+هتفتح الجيت علي المشروع
+
+8 - npm init
+download package.json
+
+9 - npm install express
+framework express useing in node.
+
+npm install express --save 
+بيحفظها في dependencies .
+
+npm install express-generator -g
+بينزل مكتبه express علي الجهاز جلوبل 
+
+10 - express (name project )
+بينزل المشروع متقسم
+مثل
+view and routing and public .
+
+11 - jade / ejs / hps (path view)
+
+sample
+-------------------------------------------------------------------
+			(jade)
+
+		doctype html
+		html
+    			head
+        			title Jade Page
+    			body
+        			h1 This page is produced by Jade engine
+        			p some paragraph here..
+				#container.col
+      					if youAreUsingJade
+       						 p You are amazing
+      					else
+       						 p Get on it!
+      				p.
+        			Jade is a terse and simple templating language with a
+        			strong focus on performance and powerful features.
+
+
+---------------------------------------------------------------------
+				(ejs) 
+
+The writing method is close to his language HTML
+
+
+		<% include ../partials/header %>
+
+<div class="container" style="padding-top:10px">
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/event/add" class="btn btn-success btn-lg">Add Tour Guide</a>
+        </div>
+        <div class="col-md-6" style="text-align: end;">
+            <h5><span class="fa fa-user"></span> Welcome: <%= user.username %></h5>
+        </div>
+    </div>
+
+</div>
+<br>
+<div class="container">
+    <div class="">
+        <% if((events.length) > 0) { %>
+            <table id="example"
+                   class="table table-bordered table-striped table-hover js-basic-example dataTable display responsive nowrap"
+                   style="width: 100%;">
+                <thead>
+                <tr>
+                    <td style="width: 5%; text-align: center;">ID</td>
+                    <td style="width: 25%;">Name</td>
+                    <td style="width: 25%;">Number</td>
+                    <td style="width: 40%;">City</td>
+                    <td style=" width:15%;">Fees</td>
+                    <td style=" width:15%;">Nationality</td>
+                    <td style=" width:15%;">National ID</td>
+                    <td style=" width:15%;">Passport Number</td>
+                    <td style=" width:15%;">Licence Number</td>
+                    <td style=" width:15%;">Language</td>
+                    <td style="width: 15%; text-align: center;">Action</td>
+                </tr>
+                </thead>
+                <tfoot>
+
+                <tr>
+                    <td style="width: 5%; text-align: center;">ID</td>
+                    <td style="width: 25%;">Name</td>
+                    <td style="width: 25%;">Number</td>
+                    <td style="width: 40%;">City</td>
+                    <td style=" width:15%;">Fees</td>
+                    <td style=" width:15%;">Nationality</td>
+                    <td style=" width:15%;">National ID</td>
+                    <td style=" width:15%;">Passport Number</td>
+                    <td style=" width:15%;">Licence Number</td>
+                    <td style=" width:15%;">Language</td>
+                    <td style="width: 15%; text-align: center;">Action</td>
+
+                </tr>
+
+                </tfoot>
+
+                <tbody>
+                <% events.forEach(function(event, index){ %>
+                    <tr>
+                        <td style="width: 5%; text-align: center;"> <%= index + 1 %> </td>
+                        <td style="width: 25%;"> <%= event.name %> </td>
+                        <td style="width: 25%;"> <%= event.number %> </td>
+                        <td style="width: 40%;"> <%= event.city %> </td>
+                        <td style=" width:15%;"> <%= event.fess %> </td>
+                        <td style=" width:15%;"> <%= event.nationality %> </td>
+                        <td style=" width:15%;"> <%= event.national %> </td>
+                        <td style=" width:15%;"> <%= event.passport_number %> </td>
+                        <td style=" width:15%;"> <%= event.licence_number %> </td>
+                        <td style=" width:15%;"> <%= event.language %> </td>
+                        <td style="width: 15%; text-align: center;">
+                            <a href="/event/edit/<%= event.id %>" class="btn btn-info">Edit</a>
+                            <a href="/event/delete/<%= event.id %>" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        <% }else{ %>
+            <p><strong> There is no events available now. </strong></p>
+        <% } %>
+    </div>
+</div>
+<% include ../partials/footer %>
+
+---------------------------------------------------------------------
+				(hps)
+
+The writing method is close to his language HTML
+
+{{#if successMas}}
+        <div class="alert alert-success ">
+            {{ successMas }}
+        </div>
+        {{/if}}
+<div class="row">
+    {{#each items}}
+    <div class="col-md-4 card_spac">
+        <div class="card">
+            <img src="{{this.imagePath}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h4 class="card-title">{{this.producttName}}</h4>
+                <p class="card-text">
+                    Storage Capacity : {{this.information.storageCapacity}} GB <br>
+                    Number Of SIM : {{this.information.numberOfSIM}} <br>
+                    Rear Camera Rasolution : {{this.information.cameraRasolution}} Mp <br>
+                    Display Size (Inch) : {{this.information.displaySize}} Inch
+                </p>
+                <div class="price float-left">Price: $ {{this.price}}</div>
+                {{#if ../checkUser}}
+                <a href="/addtocard/{{this._id}}/{{this.price}}/{{this.producttName}}"
+                    class="btn btn-success float-right">Buy</a>
+                {{else}}
+                <a href="users/signin"
+                    class="btn btn-dark float-right">Login</a>
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+---------------------------------------------------------------------
+
+
+12 - npm install nodemon --save (auto run server)
+بيحفظها في dependencies .
+
+npm install -g nodemon
+علي الجهاز جلوبل
+C:\Program Files\MongoDB\Server\4.2\bin verison
+
+13 - express test_hbs --hbs
+download project only path hbs
+
+14 - npm install --save express-validator
+validator check input form
+درس 23
+حل المشكله Express Validator Error: expressValidator is not a function
+https://stackoverflow.com/questions/56733975/express-validator-error-expressvalidator-is-not-a-function
+
+15- npm install --save express-session
+download session because session show error or success
+
+16 - https://github.com/bower/bower
+بيساعد علي تنزيل اي مكتبه
+say bootstrap , jquery
+
+17 - bower install bootstrap jquery --save
+command line install
+
+18 - npm install -- save mongoose
+command line install mongodb database
+
+19 - npm install express-handlebars --save
+command line install handlebars 
+مكتبه layout
+وتقسيم view
+Error: ENOENT: no such file or directory, open 'D:\xampp\htdocs\learn_node\shopping-cart\views\layouts\layout.hbs'
+
+20 - npm install --save bcrypt
+command line install bcrypt
+https://bcrypt-generator.com/
+hash password
+
+21 - npm install --save connect-flash
+command line install flash
+show message
+
+22 - npm install --save passport
+command line install passport
+http://www.passportjs.org/docs/downloads/html/
+library auth
+
+23 - npm install --save passport-local
+علشان اعمل تسجيل لوكل للمشروع 
+
+
+24 - plugin mongoose
+https://stackoverflow.com/questions/7727745/does-mongodb-have-something-like-heidisql-or-phpmyadmin
+علشان لما تحب تشوف داتا بيز بتاعه مونجو لزم تنزل البرنامج ده
+
+25 - npm install --save csurf
+command line install csurf
+https://www.npmjs.com/package/csurf
+{{token form}}
+
+26 - https://stripe.com/docs/stripe-js/v2#supported-browsers
+موقع طرق الدفع
+
+
+27 - npm install --save stripe
+command line install stripe
+
+check crited card
+4242424242424242
+
+28 - https://www.npmjs.com/package/multer
+npm install --save multer
+upload image 
+
+https://github.com/expressjs/csurf/issues/36
+حل مشكله csrf token of image
+
+
+29 - npm install --save @hapi/joi@15.0.3
+validation form
+
+
+

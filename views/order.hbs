@@ -1,0 +1,113 @@
+{{#if order}}
+<div class="text-center">
+    <div class="main-container no-sidebar">
+        <div class="container">
+            <div class="main-content">
+                <div class="page-title">
+                    <h3>Orders</h3>
+                </div>
+                {{#each order as |val index|}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <table class="shop_table cart">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="product-name">Product</th>
+                                    <th class="product-quantity">Qty</th>
+                                    <th class="product-subtotal">Total</th>
+                                </tr>
+                            </thead>
+                            {{#each this.cart.selectedProduct as |val indexproduct|}}
+                            <tbody>
+                                <tr>
+                                    <td class="product-thumbnail"><img src="{{this.image}}" alt=""></td>
+
+                                    <td class="product-name"><a href="#">{{this.name}}</a></td>
+                                    <td><input class="qty" type="text" value="{{this.quantity}}" readonly></td>
+                                    <td>£{{this.price}}</td>
+                                </tr>
+                            </tbody>
+                            {{/each}}
+                        </table>
+
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="box-cart-total">
+                            <h2 class="title">Payment Data</h2>
+                            <table>
+                                <tr>
+                                    <td>Payment Id</td>
+                                    <td><span class="price">{{this.paymentId}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td><span class="price">{{this.name}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td><span class="price">{{this.address}}</span></td>
+                                </tr>
+                                <tr class="order-total">
+                                    <td>Total Price</td>
+                                    <td><span class="price">£{{this.orderprice}}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <hr>
+                <br>
+                <br>
+                {{/each}}
+            </div>
+        </div>
+        <div class="margin-top-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <div class="element-icon style2">
+                            <div class="icon"><i class="flaticon flaticon-origami28"></i></div>
+                            <div class="content">
+                                <h4 class="title">FREE SHIPPING WORLD WIDE</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="element-icon style2">
+                            <div class="icon"><i class="flaticon flaticon-curvearrows9"></i></div>
+                            <div class="content">
+                                <h4 class="title">MONEY BACK GUARANTEE</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="element-icon style2">
+                            <div class="icon"><i class="flaticon flaticon-headphones54"></i></div>
+                            <div class="content">
+                                <h4 class="title">ONLINE SUPPORT 24/7</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{else}}
+<div style="padding: 10%;">
+
+    <div class="box-coupon">
+        <div class="coupon">
+            <h3 class="coupon-box-title"><i class="fas fa-sad-tear" style="font-size: 40px;"></i>
+
+            </h3>
+            <div class="inner-box">
+                <h1>Your Order Is Empty</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{/if}}
